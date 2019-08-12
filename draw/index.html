@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <style>
+        html,
+        body {
+            height: 100%;
+            padding: 0px;
+            margin: 0px;
+            max-height: 100%;
+            max-width: 100%;
+            background-color: white;
+            overflow: hidden;
+        }
+
+        /* Scale canvas with resize attribute to full size */
+        canvas[resize] {
+            width: 100%;
+            height: 100vh;
+        }
+
+        .buttons {
+            position: fixed;
+            top: 4px;
+            left: 4px;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+            border-bottom-left-radius: 3px;
+            color: white;
+            fill: white;
+            font-size: 11.5px;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            white-space: nowrap;
+            max-width: calc(100% - 16px);
+            /* pointer-events: none; */
+            opacity: 1;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+            z-index: 2;
+            background-position: initial initial;
+            background-repeat: initial initial;
+        }
+
+        .Btn {
+            display: none;
+            cursor: pointer;
+            /* -webkit-user-select: none; */
+            /* transition: background 120ms ease-in; */
+            /* display: flex;
+            align-items: center; */
+            padding: 6px 9px;
+            border-right-width: 1px;
+            border-right-style: solid;
+            border-right-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .app:hover .Btn {
+            display: inline;
+        }
+
+        /* #notion-ui {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 159px;
+            height: 26px;
+            border-radius: 3px;
+            background-color:white;
+            z-index: 1;
+        }
+
+        #draw-ui {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 34px;
+            background: #666666;
+            padding: 0;
+            margin: 0;
+        } */
+    </style>
+
+    <!-- Load the Paper.js library -->
+    <script type="text/javascript" src="node_modules/paper/dist/paper-full.js"></script>
+    <!-- Define inlined PaperScript associate it with myCanvas -->
+    <script>
+        window.globals = {
+        };
+    </script>
+    <script type="text/paperscript" src="js/draw.js" canvas="myCanvas">
+    </script>
+</head>
+
+<body>
+    <!-- <div id="notion-ui"></div>
+    <div id="draw-ui"></div> -->
+
+    <div class="app">
+        <canvas id="myCanvas" resize></canvas>
+        <div class="buttons">
+            <div class="downloadBtn Btn" onClick="window.globals.downloadAsSVG()">Download</div>
+            <div class="deleteBtn Btn" onClick="window.globals.deleteDrawing()">Clear</div>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>
