@@ -15,9 +15,9 @@ function onMouseDown(event) {
     // Create a new path and set its stroke color to black:
     path = new Path({
         segments: [event.point],
-        strokeColor: 'black',
+        strokeColor: 'lightgray',
         // Select the path, so we can see its segment points:
-        fullySelected: true,
+        // fullySelected: true,
         selectedColor: 'lightgray'
     });
 }
@@ -38,6 +38,7 @@ function onMouseUp(event) {
 
     // When the mouse is released, simplify it:
     path.simplify(10);
+    path.strokeColor = 'black';
 
     // Select the path, so we can see its segments:
     path.fullySelected = false;
