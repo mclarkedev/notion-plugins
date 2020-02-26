@@ -65,6 +65,7 @@ function downloadAsSVG(fileName) {
     }
  
     var url = "data:image/svg+xml;utf8," + encodeURIComponent(paper.project.exportSVG({asString:true}));
+    console.log(url);
  
     var link = document.createElement("a");
     link.download = fileName;
@@ -73,7 +74,27 @@ function downloadAsSVG(fileName) {
     
  }
  
- globals.deleteDrawing= deleteDrawing;
+ globals.copyAsSVG = copyAsSVG;
+
+ function copyAsSVG() {
+    var data = new DataTransfer();
+
+    var text = "data:image/svg+xml;utf8," + encodeURIComponent(paper.project.exportSVG({asString:true}));
+    console.log(text);
+  
+    data.items.add(text, "image/svg+xml");
+    console.log(data);
+
+    navigator.clipboard.writeText(text).then(function() {
+      alert('COPIED' + text)
+    }, function() {
+      alert('FAILED' + text)
+    });
+    console.log(text);
+
+}
+
+globals.deleteDrawing = deleteDrawing;
 
 function deleteDrawing(fileName) {
 
