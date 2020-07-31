@@ -20,13 +20,10 @@
       }
 
       .buttons {
-        position: fixed;
+        position: absolute;
         top: 4px;
         left: 4px;
-        border-top-left-radius: 3px;
-        border-top-right-radius: 3px;
-        border-bottom-right-radius: 3px;
-        border-bottom-left-radius: 3px;
+        border-radius: 3px;
         color: white;
         fill: white;
         font-size: 11.5px;
@@ -34,8 +31,10 @@
         display: flex;
         white-space: nowrap;
         max-width: calc(100% - 16px);
-        /* pointer-events: none; */
-        opacity: 1;
+        overflow: hidden;
+        pointer-events: auto;
+        opacity: 0;
+        transition: opacity 300ms ease-in 0s;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
           "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
           "Segoe UI Symbol";
@@ -45,43 +44,18 @@
       }
 
       .Btn {
-        display: none;
+        display: inline;
         cursor: pointer;
-        /* -webkit-user-select: none; */
-        /* transition: background 120ms ease-in; */
-        /* display: flex;
-            align-items: center; */
         padding: 6px 9px;
         border-right-width: 1px;
         border-right-style: solid;
         border-right-color: rgba(255, 255, 255, 0.2);
       }
 
-      .app:hover .Btn {
-        display: inline;
+      .app:hover .buttons {
+        /* display: inline; */
+        opacity: 1;
       }
-
-      /* #notion-ui {
-            position: absolute;
-            top: 4px;
-            right: 4px;
-            width: 159px;
-            height: 26px;
-            border-radius: 3px;
-            background-color:white;
-            z-index: 1;
-        }
-
-        #draw-ui {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 34px;
-            background: #666666;
-            padding: 0;
-            margin: 0;
-        } */
     </style>
 
     <!-- Load the Paper.js library -->
