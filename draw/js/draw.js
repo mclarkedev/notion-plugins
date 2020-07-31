@@ -1,10 +1,13 @@
 var path;
 
-// var textItem = new PointText({
-//     content: 'Click and drag to draw a line.',
-//     point: new Point(20, 20),
-//     fillColor: 'lightgray',
-// });
+// Set white background color, full width and hieght of canvas
+var canvas = document.getElementById("canvas");
+var bgPoint = new Point(0, 0);
+var bgSize = new Size(canvas.width, canvas.height);
+var bg = new Path.Rectangle(bgPoint, bgSize);
+bg.style = {
+  fillColor: new Color(1, 1, 1),
+};
 
 function onMouseDown(event) {
   // If we produced a path before, deselect it:
