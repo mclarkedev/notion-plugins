@@ -1,67 +1,67 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-
+  <head>
     <style>
-        html,
-        body {
-            height: 100%;
-            padding: 0px;
-            margin: 0px;
-            max-height: 100%;
-            max-width: 100%;
-            background-color: white;
-            overflow: hidden;
-        }
+      html,
+      body {
+        height: 100%;
+        padding: 0px;
+        margin: 0px;
+        max-height: 100%;
+        max-width: 100%;
+        /* background-color: white; */
+        overflow: hidden;
+      }
 
-        /* Scale canvas with resize attribute to full size */
-        canvas[resize] {
-            width: 100%;
-            height: 100vh;
-        }
+      /* Scale canvas with resize attribute to full size */
+      canvas[resize] {
+        width: 100%;
+        height: 100vh;
+      }
 
-        .buttons {
-            position: fixed;
-            top: 4px;
-            left: 4px;
-            border-top-left-radius: 3px;
-            border-top-right-radius: 3px;
-            border-bottom-right-radius: 3px;
-            border-bottom-left-radius: 3px;
-            color: white;
-            fill: white;
-            font-size: 11.5px;
-            background-color: rgba(0, 0, 0, 0.6);
-            display: flex;
-            white-space: nowrap;
-            max-width: calc(100% - 16px);
-            /* pointer-events: none; */
-            opacity: 1;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
-            z-index: 2;
-            background-position: initial initial;
-            background-repeat: initial initial;
-        }
+      .buttons {
+        position: fixed;
+        top: 4px;
+        left: 4px;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+        border-bottom-left-radius: 3px;
+        color: white;
+        fill: white;
+        font-size: 11.5px;
+        background-color: rgba(0, 0, 0, 0.6);
+        display: flex;
+        white-space: nowrap;
+        max-width: calc(100% - 16px);
+        /* pointer-events: none; */
+        opacity: 1;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+          "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+          "Segoe UI Symbol";
+        z-index: 2;
+        background-position: initial initial;
+        background-repeat: initial initial;
+      }
 
-        .Btn {
-            display: none;
-            cursor: pointer;
-            /* -webkit-user-select: none; */
-            /* transition: background 120ms ease-in; */
-            /* display: flex;
+      .Btn {
+        display: none;
+        cursor: pointer;
+        /* -webkit-user-select: none; */
+        /* transition: background 120ms ease-in; */
+        /* display: flex;
             align-items: center; */
-            padding: 6px 9px;
-            border-right-width: 1px;
-            border-right-style: solid;
-            border-right-color: rgba(255, 255, 255, 0.2);
-        }
+        padding: 6px 9px;
+        border-right-width: 1px;
+        border-right-style: solid;
+        border-right-color: rgba(255, 255, 255, 0.2);
+      }
 
-        .app:hover .Btn {
-            display: inline;
-        }
+      .app:hover .Btn {
+        display: inline;
+      }
 
-        /* #notion-ui {
+      /* #notion-ui {
             position: absolute;
             top: 4px;
             right: 4px;
@@ -85,31 +85,34 @@
     </style>
 
     <!-- Load the Paper.js library -->
-    <script type="text/javascript" src="node_modules/paper/dist/paper-full.js"></script>
+    <script
+      type="text/javascript"
+      src="node_modules/paper/dist/paper-full.js"
+    ></script>
     <!-- Define inlined PaperScript associate it with myCanvas -->
     <script>
-        window.globals = {
-        };
+      window.globals = {};
     </script>
-    <script type="text/paperscript" src="js/draw.js" canvas="myCanvas">
-    </script>
-</head>
+    <script type="text/paperscript" src="js/draw.js" canvas="myCanvas"></script>
+  </head>
 
-<body>
+  <body>
     <!-- <div id="notion-ui"></div>
     <div id="draw-ui"></div> -->
 
     <div class="app">
-        <canvas id="myCanvas" resize></canvas>
-        <div class="buttons">
-            <div class="downloadBtn Btn" onClick="window.globals.downloadAsSVG()">Download</div>
-            <div class="downloadBtn Btn" onClick="window.globals.copyAsSVG()">Copy</div>
-            <div class="deleteBtn Btn" onClick="window.globals.deleteDrawing()">Clear</div>
+      <canvas id="myCanvas" resize></canvas>
+      <div class="buttons">
+        <div class="downloadBtn Btn" onClick="window.globals.downloadAsSVG()">
+          Download
         </div>
+        <div class="downloadBtn Btn" onClick="window.globals.copyAsPNG()">
+          Copy
+        </div>
+        <div class="deleteBtn Btn" onClick="window.globals.deleteDrawing()">
+          Clear
+        </div>
+      </div>
     </div>
-
-
-
-</body>
-
+  </body>
 </html>
