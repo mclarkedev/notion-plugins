@@ -9,6 +9,21 @@ bg.style = {
   fillColor: new Color(1, 1, 1),
 };
 
+var penWidth = 1;
+var penColor = "black";
+
+function setWidth(width) {
+  penWidth = width;
+}
+
+globals.setWidth = setWidth;
+
+function setColor(color) {
+  penColor = color;
+}
+
+globals.setColor = setColor;
+
 function onMouseDown(event) {
   // If we produced a path before, deselect it:
   if (path) {
@@ -18,10 +33,11 @@ function onMouseDown(event) {
   // Create a new path and set its stroke color to black:
   path = new Path({
     segments: [event.point],
-    strokeColor: "lightgray",
+    strokeColor: penColor,
     // Select the path, so we can see its segment points:
     // fullySelected: true,
-    selectedColor: "lightgray",
+    selectedColor: penColor,
+    strokeWidth: penWidth,
   });
 }
 
@@ -29,6 +45,9 @@ function onMouseDown(event) {
 // at the position of the mouse:
 function onMouseDrag(event) {
   path.add(event.point);
+
+  path.strokeWidth = penWidth;
+  path.strokeCap = "round";
 
   // Update the content of the text item to show how many
   // segments it has:
@@ -41,7 +60,7 @@ function onMouseUp(event) {
 
   // When the mouse is released, simplify it:
   path.simplify(10);
-  path.strokeColor = "black";
+  path.strokeColor = penColor;
 
   // Select the path, so we can see its segments:
   path.fullySelected = false;

@@ -43,6 +43,11 @@
         background-repeat: initial initial;
       }
 
+      .bottom {
+        top: auto;
+        bottom: 4px;
+      }
+
       .Btn {
         display: inline;
         cursor: pointer;
@@ -76,16 +81,41 @@
 
     <div class="app">
       <canvas id="canvas" resize></canvas>
-      <div class="buttons">
-        <div class="downloadBtn Btn" onClick="window.globals.downloadAsSVG()">
+      <div class="buttons top left">
+        <div class="downloadBtn Btn" onclick="window.globals.downloadAsSVG()">
           Download
         </div>
-        <div class="downloadBtn Btn" onClick="window.globals.copyAsPNG()">
+        <div class="downloadBtn Btn" onclick="window.globals.copyAsPNG()">
           Copy
         </div>
-        <div class="deleteBtn Btn" onClick="window.globals.deleteDrawing()">
+        <div class="deleteBtn Btn" onclick="window.globals.deleteDrawing()">
           Clear
         </div>
+      </div>
+      <div class="buttons bottom middle">
+        <div class="downloadBtn Btn" onclick="window.globals.setWidth(1)">
+          1p
+        </div>
+        <div class="downloadBtn Btn" onclick="window.globals.setWidth(3)">
+          3p
+        </div>
+        <div class="deleteBtn Btn" onclick="window.globals.setWidth(6)">6p</div>
+        <div class="deleteBtn Btn" onclick="window.globals.setWidth(8)">8p</div>
+        <div class="deleteBtn Btn" onclick="window.globals.setWidth(10)">
+          10p
+        </div>
+        <div class="deleteBtn Btn" onclick="window.globals.setColor('black')">
+          Black
+        </div>
+        <div class="deleteBtn Btn" onclick="window.globals.setColor('blue')">
+          Blue
+        </div>
+        <div class="deleteBtn Btn" onclick="window.globals.setColor('yellow')">
+          Yellow
+        </div>
+        <!-- <div class="deleteBtn Btn" onclick="window.globals.setWidth(10)">
+          <input type="color" onchange="window.globals.setColor()" />
+        </div> -->
       </div>
     </div>
   </body>
