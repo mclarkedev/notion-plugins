@@ -5,12 +5,26 @@ var canvas = document.getElementById("canvas");
 var bgPoint = new Point(0, 0);
 var bgSize = new Size(canvas.width, canvas.height);
 var bg = new Path.Rectangle(bgPoint, bgSize);
-bg.style = {
-  fillColor: new Color(1, 1, 1),
-};
+var bgColor = [1, 1, 1];
 
 var penWidth = 1;
 var penColor = "black";
+
+if (
+  window.matchMedia &&
+  window.matchMedia("(prefers-color-scheme: dark)").matches
+) {
+  bgColor = "#303437";
+  penColor = "white";
+  console.log("DARK MODE", new Color(bgColor));
+  bg.style = {
+    fillColor: "#303437",
+  };
+}
+
+bg.style = {
+  fillColor: new Color(bgColor),
+};
 
 function setWidth(width) {
   penWidth = width;
