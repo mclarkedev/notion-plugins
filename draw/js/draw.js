@@ -29,12 +29,18 @@ bg.style = {
   fillColor: new Color(bgColor),
 };
 
-function setColorScheme(colorScheme) {
+function setColorScheme() {
   if (darkMode === false) darkMode = true;
   if (darkMode === true) darkMode = false;
+  bgColor = "#2f3437";
+  penColor = "white";
+  console.log("DARK MODE", new Color(bgColor));
+  bg.style = {
+    fillColor: "#2f3437",
+  };
 }
 
-globals.setWidth = setWidth;
+globals.setColorScheme = setColorScheme;
 
 function setWidth(width) {
   penWidth = width;
