@@ -2,36 +2,46 @@ var path;
 
 // Set white background color, full width and hieght of canvas
 var canvas = document.getElementById("canvas");
-var bgPoint = new Point(0, 0);
-var bgSize = new Size(canvas.width, canvas.height);
-var bg = new Path.Rectangle(bgPoint, bgSize);
-var bgColor = [1, 1, 1];
+var bgPoint, bgSize, bg, bgColor;
 
 var penWidth = 1;
 var penColor = "black";
 
-var darkMode = false;
+// var darkMode = false;
 
-if (
-  (window.matchMedia &&
-    window.matchMedia("(prefers-color-scheme: dark)").matches) ||
-  darkMode
-) {
-  bgColor = "#2f3437";
-  penColor = "white";
-  console.log("DARK MODE", new Color(bgColor));
-  bg.style = {
-    fillColor: "#2f3437",
-  };
+function initPaper() {
+  bgPoint = new Point(0, 0);
+  bgSize = new Size(canvas.width, canvas.height);
+  bg = new Path.Rectangle(bgPoint, bgSize);
+
+  if (
+    window.matchMedia &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches
+  ) {
+    bgColor = "#2f3437";
+    penColor = "white";
+    console.log("DARK MODE", new Color(bgColor));
+    bg.style = {
+      fillColor: "#2f3437",
+    };
+  }
+
+  if (
+    window.matchMedia &&
+    window.matchMedia("(prefers-color-scheme: light)").matches
+  ) {
+    bgColor = [1, 1, 1];
+    penColor = "black";
+    bg.style = {
+      fillColor: new Color(bgColor),
+    };
+  }
 }
-
-bg.style = {
-  fillColor: new Color(bgColor),
-};
+initPaper();
 
 function setColorScheme() {
-  if (darkMode === false) darkMode = true;
-  if (darkMode === true) darkMode = false;
+  // if (darkMode === false) darkMode = true;
+  // if (darkMode === true) darkMode = false;
   bgColor = "#2f3437";
   penColor = "white";
   console.log("DARK MODE", new Color(bgColor));
@@ -179,6 +189,7 @@ globals.deleteDrawing = deleteDrawing;
 
 function deleteDrawing(fileName) {
   project.activeLayer.removeChildren();
+  initPaper();
 }
 
 // CLIPBOARD
