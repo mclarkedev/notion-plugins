@@ -10,21 +10,31 @@ var bgColor = [1, 1, 1];
 var penWidth = 1;
 var penColor = "black";
 
+var darkMode = false;
+
 if (
-  window.matchMedia &&
-  window.matchMedia("(prefers-color-scheme: dark)").matches
+  (window.matchMedia &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches) ||
+  darkMode
 ) {
-  bgColor = "#303437";
+  bgColor = "#2f3437";
   penColor = "white";
   console.log("DARK MODE", new Color(bgColor));
   bg.style = {
-    fillColor: "#303437",
+    fillColor: "#2f3437",
   };
 }
 
 bg.style = {
   fillColor: new Color(bgColor),
 };
+
+function setColorScheme(colorScheme) {
+  if (darkMode === false) darkMode = true;
+  if (darkMode === true) darkMode = false;
+}
+
+globals.setWidth = setWidth;
 
 function setWidth(width) {
   penWidth = width;
