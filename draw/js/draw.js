@@ -8,6 +8,14 @@ var penWidth = 1.5;
 
 var darkMode = false;
 
+function inIframe() {
+  try {
+    return window.self !== window.top;
+  } catch (e) {
+    return true;
+  }
+}
+
 function initPaper() {
   bgPoint = new Point(0, 0);
   bgSize = new Size(canvas.width, canvas.height);
@@ -78,7 +86,7 @@ function onMouseDown(event) {
     segments: [event.point],
     strokeColor: penColor,
     // Select the path, so we can see its segment points:
-    fullySelected: true,
+    // fullySelected: true,
     selectedColor: penColor,
     strokeWidth: penWidth,
   });
