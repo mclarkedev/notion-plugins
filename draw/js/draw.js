@@ -2,12 +2,11 @@ var path;
 
 // Set white background color, full width and hieght of canvas
 var canvas = document.getElementById("canvas");
-var bgPoint, bgSize, bg, bgColor;
+var bgPoint, bgSize, bg, bgColor, penColor;
 
-var penWidth = 1;
-var penColor = "black";
+var penWidth = 1.5;
 
-// var darkMode = false;
+var darkMode = false;
 
 function initPaper() {
   bgPoint = new Point(0, 0);
@@ -15,8 +14,9 @@ function initPaper() {
   bg = new Path.Rectangle(bgPoint, bgSize);
 
   if (
-    window.matchMedia &&
-    window.matchMedia("(prefers-color-scheme: dark)").matches
+    (window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches) ||
+    darkMode
   ) {
     bgColor = "#2f3437";
     penColor = "white";
@@ -27,8 +27,9 @@ function initPaper() {
   }
 
   if (
-    window.matchMedia &&
-    window.matchMedia("(prefers-color-scheme: light)").matches
+    (window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: light)").matches) ||
+    !darkMode
   ) {
     bgColor = [1, 1, 1];
     penColor = "black";
