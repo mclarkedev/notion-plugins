@@ -43,9 +43,11 @@ initPaper();
 function setColorScheme() {
   // if (darkMode === false) darkMode = true;
   // if (darkMode === true) darkMode = false;
+  darkMode = true;
+  console.log(darkMode);
   bgColor = "#2f3437";
   penColor = "white";
-  console.log("DARK MODE", new Color(bgColor));
+  // console.log("DARK MODE", new Color(bgColor));
   bg.style = {
     fillColor: "#2f3437",
   };
