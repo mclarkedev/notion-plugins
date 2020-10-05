@@ -68,17 +68,17 @@ function setColor(color) {
 globals.setColor = setColor;
 
 function onMouseDown(event) {
-  // If we produced a path before, deselect it:
+  // Deselect previous paths:
   if (path) {
     path.selected = false;
   }
 
-  // Create a new path and set its stroke color to black:
+  // New black path
   path = new Path({
     segments: [event.point],
     strokeColor: penColor,
     // Select the path, so we can see its segment points:
-    // fullySelected: true,
+    fullySelected: true,
     selectedColor: penColor,
     strokeWidth: penWidth,
   });
