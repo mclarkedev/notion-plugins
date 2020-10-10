@@ -9,37 +9,76 @@ var penWidth = 1.5;
 var notionBgColor = "#2f3437";
 // var darkMode = false;
 
-var theme =
+var browserTheme =
   window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
     ? "dark"
     : "light";
 
-function setTheme() {
+var currentTheme = browserTheme;
+
+// Setting mode state based on bool
+var darkMode = browserTheme === "dark" ? true : false;
+console.log(darkMode);
+
+function toggleTheme() {
+  var checkTheme = darkMode === true ? "light" : "dark";
+  console.log(checkTheme);
+  setTheme(checkTheme);
+}
+
+globals.toggleTheme = toggleTheme;
+
+function setTheme(theme) {
   if (theme === "dark") {
     bgColor = notionBgColor;
     penColor = "white";
 
-    bg.style = {
-      fillColor: "#2f3437",
+    if (bg) {
+      bg.style = {
+        fillColor: notionBgColor,
+      };
+    }
+
+    // Select background, make dark
+    paper.project.activeLayer.firstChild.style = {
+      fillColor: notionBgColor,
     };
 
-    // Select background, make white
     // Select all lines, make white
     console.log("DARK MODE");
+    darkMode = true;
   }
   if (theme === "light") {
     // Init local vars for newlt cleared drawing
     bgColor = [1, 1, 1];
     penColor = "black";
 
-    bg.style = {
-      fillColor: new Color(bgColor),
-    };
+    if (bg) {
+      bg.style = {
+        fillColor: new Color(bgColor),
+      };
+    }
 
-    // Find stored vars for loaded drawing
     // Select background, make white
+    paper.project.activeLayer.firstChild.style = {
+      fillColor: "white",
+    };
+    // paper.project.activeLayer.children.strokeColor = "black";
+    // console.log(paper.project.activeLayer.children);
+
+    var i;
+    for (i = 0, i < paper.project.activeLayer.children.length; i++; ) {
+      console.log(
+        "before\n",
+        paper.project.activeLayer.children[i].strokeColor
+      );
+      paper.project.activeLayer.children[i].strokeColor = "black";
+      console.log("after\n", paper.project.activeLayer.children[i].strokeColor);
+    }
+
     // Select all lines, make white
     console.log("LIGHT MODE");
+    darkMode = false;
   }
 }
 
@@ -57,21 +96,7 @@ function initPaper() {
   bgSize = new Size(canvas.width, canvas.height);
   bg = new Path.Rectangle(bgPoint, bgSize);
 
-  if (
-    (window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches) ||
-    darkMode
-  ) {
-    setTheme();
-  }
-
-  if (
-    (window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: light)").matches) ||
-    !darkMode
-  ) {
-    setTheme();
-  }
+  setTheme(currentTheme);
 }
 
 var localDrawing = localStorage.getItem("drawing");
@@ -93,7 +118,7 @@ function resetFromLocal() {
 
       penColor = "black";
 
-      setTheme(theme);
+      setTheme(browserTheme);
 
       console.log("Active layer\n", paper.project.activeLayer);
     } catch (error) {
@@ -103,21 +128,6 @@ function resetFromLocal() {
 }
 
 globals.resetFromLocal = resetFromLocal;
-
-function setColorScheme() {
-  // if (darkMode === false) darkMode = true;
-  // if (darkMode === true) darkMode = false;
-  darkMode = true;
-  console.log(darkMode);
-  bgColor = "#2f3437";
-  penColor = "white";
-  // console.log("DARK MODE", new Color(bgColor));
-  bg.style = {
-    fillColor: "#2f3437",
-  };
-}
-
-globals.setColorScheme = setColorScheme;
 
 function setWidth(width) {
   penWidth = width;
