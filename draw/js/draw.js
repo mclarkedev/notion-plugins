@@ -67,14 +67,19 @@ function setTheme(theme) {
     // console.log(paper.project.activeLayer.children);
 
     var i;
-    for (i = 0, i < paper.project.activeLayer.children.length; i++; ) {
-      console.log(
-        "before\n",
-        paper.project.activeLayer.children[i].strokeColor
-      );
-      paper.project.activeLayer.children[i].strokeColor = "black";
-      console.log("after\n", paper.project.activeLayer.children[i].strokeColor);
-    }
+    var lines = paper.project.activeLayer.children;
+
+    paper.project.activeLayer.children[1].strokeColor = "black";
+
+    // for (i = 0, i < paper.project.activeLayer.children.length; i++; ) {
+    //   try {
+    //     paper.project.activeLayer.children[i].strokeColor = "black";
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+
+    //   console.log("after\n", paper.project.activeLayer.children[i].strokeColor);
+    // }
 
     // Select all lines, make white
     console.log("LIGHT MODE");
