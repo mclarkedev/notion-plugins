@@ -7,14 +7,6 @@ var bgPoint, bgSize, bg, bgColor, penColor;
 var penWidth = 1.5;
 var darkMode = false;
 
-// Check local storage, import if exsissts
-
-var localDrawing = localStorage.getItem("drawing");
-if (localDrawing) {
-  console.log("Local drawing found\n", JSON.parse(localDrawing));
-  paper.project.importJSON(localDrawing);
-}
-
 function inIframe() {
   try {
     return window.self !== window.top;
@@ -52,6 +44,8 @@ function initPaper() {
       fillColor: new Color(bgColor),
     };
   }
+  // Load lo
+  resetFromLocal();
 }
 initPaper();
 
@@ -81,6 +75,22 @@ function setColor(color) {
 }
 
 globals.setColor = setColor;
+
+function resetFromLocal() {
+  var localDrawing = localStorage.getItem("drawing");
+  if (localDrawing) {
+    console.log("Local drawing found\n", JSON.parse(localDrawing));
+
+    try {
+      paper.project.clear();
+      paper.project.importJSON(JSON.parse(localDrawing));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
+globals.resetFromLocal = resetFromLocal;
 
 tool.minDistance = 1;
 tool.maxDistance = 5;
@@ -132,8 +142,7 @@ tool.onMouseUp = function (event) {
   var percentage = 100 - Math.round((newSegmentCount / segmentCount) * 100);
   // textItem.content = difference + ' of the ' + segmentCount + ' segments were removed. Saving ' + percentage + '%';
 
-  // Save to local
-
+  // Save to local on every draw
   var drawing = paper.project.exportJSON();
   console.log("Export \n", drawing);
   localStorage.setItem("drawing", drawing);
@@ -163,55 +172,6 @@ function downloadAsSVG(fileName) {
   link.href = url;
   link.click();
 }
-
-// globals.copyAsSVG = copyAsSVG;
-
-// // In last push
-// function copyAsSVGNO() {
-//   var data = new DataTransfer();
-
-//   var text =
-//     "data:image/svg+xml;utf8," +
-//     encodeURIComponent(paper.project.exportSVG({ asString: true }));
-//   //   console.log(text);
-
-//   data.items.add(text, "image/svg+xml;utf8");
-
-//   navigator.clipboard.writeText(text).then(
-//     function () {
-//       alert("COPIED:" + text);
-//     },
-//     function () {
-//       alert("FAILED:" + text);
-//     }
-//   );
-//   //   console.log(data);
-// }
-
-// // Catch user's action
-// function copyAsSVG() {
-//   var svg = encodeURIComponent(paper.project.exportSVG({ asString: true }));
-//   // var svg = paper.project.exportSVG({asString:true});
-//   // var svg = paper.project.exportSVG();
-
-//   var clipboardData = "data:image/svg+xml;utf8" + svg;
-//   console.log(clipboardData);
-
-//   // Overwrite what is being copied to the clipboard.
-//   document.addEventListener("copy", function (e) {
-//     // e.clipboardData is initially empty, but we can set it to the
-//     // data that we want copied onto the clipboard.
-//     // e.clipboardData.setData('text/plain', svg);
-//     e.preventDefault();
-
-//     try {
-//       e.clipboardData.setData(clipboardData);
-//     } catch (err) {
-//       console.log(err);
-//     }
-//     // image/svg+xml
-//   });
-// }
 
 globals.deleteDrawing = deleteDrawing;
 

@@ -82,23 +82,16 @@
     <div class="app">
       <canvas id="canvas" resize></canvas>
       <div class="buttons top left">
-        <div class="downloadBtn Btn" onclick="window.globals.downloadAsSVG()">
-          Download
-        </div>
-        <div class="downloadBtn Btn" onclick="window.globals.copyAsPNG()">
-          Copy
-        </div>
-        <div class="deleteBtn Btn" onclick="window.globals.deleteDrawing()">
-          Clear
-        </div>
+        <div class="Btn" onclick="window.globals.downloadAsSVG()">Download</div>
+        <div class="Btn" onclick="window.globals.copyAsPNG()">Copy</div>
+        <div class="Btn" onclick="window.globals.deleteDrawing()">Clear</div>
+        <!-- <div class="Btn" onclick="window.globals.resetFromLocal()">Load</div> -->
       </div>
       <div class="buttons bottom middle">
         <!-- <div class="downloadBtn Btn" onclick="window.globals.setWidth(1)">
           1p
         </div> -->
-        <div class="downloadBtn Btn" onclick="window.globals.setWidth(4)">
-          4p
-        </div>
+        <div class="Btn" onclick="window.globals.setWidth(4)">4p</div>
         <!-- <div class="deleteBtn Btn" onclick="window.globals.setWidth(6)">6p</div>
         <div class="deleteBtn Btn" onclick="window.globals.setWidth(8)">8p</div>
         <div class="deleteBtn Btn" onclick="window.globals.setWidth(10)">
