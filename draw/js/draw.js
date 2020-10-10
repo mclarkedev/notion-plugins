@@ -39,17 +39,15 @@ function setTheme(theme) {
       };
     }
 
-    // Select background, make dark
     paper.project.activeLayer.firstChild.style = {
       fillColor: notionBgColor,
     };
+    paper.project.activeLayer.strokeColor = "white";
 
-    // Select all lines, make white
     console.log("DARK MODE");
     darkMode = true;
   }
   if (theme === "light") {
-    // Init local vars for newlt cleared drawing
     bgColor = [1, 1, 1];
     penColor = "black";
 
@@ -59,29 +57,11 @@ function setTheme(theme) {
       };
     }
 
-    // Select background, make white
     paper.project.activeLayer.firstChild.style = {
       fillColor: "white",
     };
-    // paper.project.activeLayer.children.strokeColor = "black";
-    // console.log(paper.project.activeLayer.children);
+    paper.project.activeLayer.strokeColor = "black";
 
-    var i;
-    var lines = paper.project.activeLayer.children;
-
-    paper.project.activeLayer.children[1].strokeColor = "black";
-
-    // for (i = 0, i < paper.project.activeLayer.children.length; i++; ) {
-    //   try {
-    //     paper.project.activeLayer.children[i].strokeColor = "black";
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-
-    //   console.log("after\n", paper.project.activeLayer.children[i].strokeColor);
-    // }
-
-    // Select all lines, make white
     console.log("LIGHT MODE");
     darkMode = false;
   }
