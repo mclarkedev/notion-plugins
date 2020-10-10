@@ -5,7 +5,43 @@ var canvas = document.getElementById("canvas");
 var bgPoint, bgSize, bg, bgColor, penColor;
 
 var penWidth = 1.5;
-var darkMode = false;
+
+var notionBgColor = "#2f3437";
+// var darkMode = false;
+
+var theme =
+  window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+
+function setTheme() {
+  if (theme === "dark") {
+    bgColor = notionBgColor;
+    penColor = "white";
+
+    bg.style = {
+      fillColor: "#2f3437",
+    };
+
+    // Select background, make white
+    // Select all lines, make white
+    console.log("DARK MODE");
+  }
+  if (theme === "light") {
+    // Init local vars for newlt cleared drawing
+    bgColor = [1, 1, 1];
+    penColor = "black";
+
+    bg.style = {
+      fillColor: new Color(bgColor),
+    };
+
+    // Find stored vars for loaded drawing
+    // Select background, make white
+    // Select all lines, make white
+    console.log("LIGHT MODE");
+  }
+}
 
 function inIframe() {
   try {
@@ -16,6 +52,7 @@ function inIframe() {
 }
 
 function initPaper() {
+  // If no bg then add
   bgPoint = new Point(0, 0);
   bgSize = new Size(canvas.width, canvas.height);
   bg = new Path.Rectangle(bgPoint, bgSize);
@@ -25,12 +62,7 @@ function initPaper() {
       window.matchMedia("(prefers-color-scheme: dark)").matches) ||
     darkMode
   ) {
-    bgColor = "#2f3437";
-    penColor = "white";
-    console.log("DARK MODE", new Color(bgColor));
-    bg.style = {
-      fillColor: "#2f3437",
-    };
+    setTheme();
   }
 
   if (
@@ -38,13 +70,8 @@ function initPaper() {
       window.matchMedia("(prefers-color-scheme: light)").matches) ||
     !darkMode
   ) {
-    bgColor = [1, 1, 1];
-    penColor = "black";
-    bg.style = {
-      fillColor: new Color(bgColor),
-    };
+    setTheme();
   }
-  // Reset from local after initial shapes to avoid accessing project after reset
 }
 
 var localDrawing = localStorage.getItem("drawing");
@@ -62,6 +89,13 @@ function resetFromLocal() {
     try {
       paper.project.clear();
       paper.project.importJSON(JSON.parse(localDrawing));
+      paper.project.activate();
+
+      penColor = "black";
+
+      setTheme(theme);
+
+      console.log("Active layer\n", paper.project.activeLayer);
     } catch (error) {
       console.log(error);
     }
@@ -103,9 +137,9 @@ tool.maxDistance = 5;
 
 tool.onMouseDown = function (event) {
   // Deselect previous paths:
-  if (path) {
-    path.selected = false;
-  }
+  // if (path) {
+  //   path.selected = false;
+  // }
 
   // New black path
   path = new Path({
@@ -151,6 +185,7 @@ tool.onMouseUp = function (event) {
   var drawing = paper.project.exportJSON();
   console.log("Export \n", drawing);
   localStorage.setItem("drawing", drawing);
+  // console.log("Active layer\n", paper.project.activeLayer);
 };
 
 //Listen for SHIFT-P to save content as SVG file.
