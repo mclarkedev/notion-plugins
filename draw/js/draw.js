@@ -5,8 +5,15 @@ var canvas = document.getElementById("canvas");
 var bgPoint, bgSize, bg, bgColor, penColor;
 
 var penWidth = 1.5;
-
 var darkMode = false;
+
+// Check local storage, import if exsissts
+
+var localDrawing = localStorage.getItem("drawing");
+if (localDrawing) {
+  console.log("Local drawing found\n", JSON.parse(localDrawing));
+  paper.project.importJSON(localDrawing);
+}
 
 function inIframe() {
   try {
@@ -75,7 +82,11 @@ function setColor(color) {
 
 globals.setColor = setColor;
 
-function onMouseDown(event) {
+tool.minDistance = 1;
+tool.maxDistance = 5;
+// tool.fixedDistance = 2;
+
+tool.onMouseDown = function (event) {
   // Deselect previous paths:
   if (path) {
     path.selected = false;
@@ -90,11 +101,11 @@ function onMouseDown(event) {
     selectedColor: penColor,
     strokeWidth: penWidth,
   });
-}
+};
 
 // While the user drags the mouse, points are added to the path
 // at the position of the mouse:
-function onMouseDrag(event) {
+tool.onMouseDrag = function (event) {
   path.add(event.point);
 
   path.strokeWidth = penWidth;
@@ -103,10 +114,10 @@ function onMouseDrag(event) {
   // Update the content of the text item to show how many
   // segments it has:
   // textItem.content = 'Segment count: ' + path.segments.length;
-}
+};
 
 // When the mouse is released, we simplify the path:
-function onMouseUp(event) {
+tool.onMouseUp = function (event) {
   var segmentCount = path.segments.length;
 
   // When the mouse is released, simplify it:
@@ -120,7 +131,13 @@ function onMouseUp(event) {
   var difference = segmentCount - newSegmentCount;
   var percentage = 100 - Math.round((newSegmentCount / segmentCount) * 100);
   // textItem.content = difference + ' of the ' + segmentCount + ' segments were removed. Saving ' + percentage + '%';
-}
+
+  // Save to local
+
+  var drawing = paper.project.exportJSON();
+  console.log("Export \n", drawing);
+  localStorage.setItem("drawing", drawing);
+};
 
 //Listen for SHIFT-P to save content as SVG file.
 tool.onKeyUp = function (event) {
