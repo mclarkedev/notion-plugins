@@ -44,10 +44,31 @@ function initPaper() {
       fillColor: new Color(bgColor),
     };
   }
-  // Load lo
+  // Reset from local after initial shapes to avoid accessing project after reset
+}
+
+var localDrawing = localStorage.getItem("drawing");
+if (localDrawing) {
   resetFromLocal();
 }
-initPaper();
+if (!localDrawing) {
+  initPaper();
+}
+
+function resetFromLocal() {
+  if (localDrawing) {
+    console.log("Local drawing found\n", JSON.parse(localDrawing));
+
+    try {
+      paper.project.clear();
+      paper.project.importJSON(JSON.parse(localDrawing));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
+globals.resetFromLocal = resetFromLocal;
 
 function setColorScheme() {
   // if (darkMode === false) darkMode = true;
@@ -75,22 +96,6 @@ function setColor(color) {
 }
 
 globals.setColor = setColor;
-
-function resetFromLocal() {
-  var localDrawing = localStorage.getItem("drawing");
-  if (localDrawing) {
-    console.log("Local drawing found\n", JSON.parse(localDrawing));
-
-    try {
-      paper.project.clear();
-      paper.project.importJSON(JSON.parse(localDrawing));
-    } catch (error) {
-      console.log(error);
-    }
-  }
-}
-
-globals.resetFromLocal = resetFromLocal;
 
 tool.minDistance = 1;
 tool.maxDistance = 5;
@@ -176,7 +181,8 @@ function downloadAsSVG(fileName) {
 globals.deleteDrawing = deleteDrawing;
 
 function deleteDrawing(fileName) {
-  project.activeLayer.removeChildren();
+  project.clear();
+  // If project is cleared, then always initPaper after
   initPaper();
 }
 
