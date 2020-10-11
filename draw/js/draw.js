@@ -39,10 +39,16 @@ function setTheme(theme) {
       };
     }
 
-    paper.project.activeLayer.firstChild.style = {
-      fillColor: notionBgColor,
-    };
     paper.project.activeLayer.strokeColor = "white";
+    paper.project.activeLayer.firstChild.fillColor = notionBgColor;
+    paper.project.activeLayer.firstChild.strokeColor = notionBgColor;
+
+    // paper.project.activeLayer.firstChild.style = {
+    //   fillColor: notionBgColor,
+    //   strokeColor: notionBgColor,
+    // };
+
+    console.log(paper.project.activeLayer.firstChild);
 
     console.log("DARK MODE");
     darkMode = true;
@@ -57,10 +63,9 @@ function setTheme(theme) {
       };
     }
 
-    paper.project.activeLayer.firstChild.style = {
-      fillColor: "white",
-    };
     paper.project.activeLayer.strokeColor = "black";
+    paper.project.activeLayer.firstChild.fillColor = "white";
+    paper.project.activeLayer.firstChild.strokeColor = "white";
 
     console.log("LIGHT MODE");
     darkMode = false;
