@@ -40,6 +40,8 @@ function setTheme(theme) {
     }
 
     paper.project.activeLayer.strokeColor = "white";
+    // bg
+    document.body.style.backgroundColor = notionBgColor;
     paper.project.activeLayer.firstChild.fillColor = notionBgColor;
     paper.project.activeLayer.firstChild.strokeColor = notionBgColor;
 
@@ -64,6 +66,8 @@ function setTheme(theme) {
     }
 
     paper.project.activeLayer.strokeColor = "black";
+    // bg
+    document.body.style.backgroundColor = "white";
     paper.project.activeLayer.firstChild.fillColor = "white";
     paper.project.activeLayer.firstChild.strokeColor = "white";
 
