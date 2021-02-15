@@ -16,7 +16,7 @@ var url =
 console.log("Doc Location\n", document.location.href);
 console.log("Doc referrer\n", document.referrer);
 console.log("Win Location\n", window.location);
-console.log("Win Parent Location\n", window.parent.location);
+// console.log("Win Parent Location\n", window.parent.location);
 
 var browserTheme =
   window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
