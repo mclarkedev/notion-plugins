@@ -9,14 +9,14 @@ var penWidth = 1.5;
 var notionBgColor = "#2f3437";
 // var darkMode = false;
 
-// var url =
-//   window.location != window.parent.location
-//     ? document.referrer
-//     : document.location.href;
-// console.log("Doc Location\n", document.location.href);
-// console.log("Doc referrer\n", document.referrer);
-// console.log("Win Location\n", window.location);
-// console.log("Win Parent Location\n", window.parent.location);
+var url =
+  window.location != window.parent.location
+    ? document.referrer
+    : document.location.href;
+console.log("Doc Location\n", document.location.href);
+console.log("Doc referrer\n", document.referrer);
+console.log("Win Location\n", window.location);
+console.log("Win Parent Location\n", window.parent.location);
 
 var browserTheme =
   window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches

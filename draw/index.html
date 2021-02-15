@@ -18,6 +18,8 @@
       canvas[resize] {
         width: 100%;
         height: 100vh;
+        -webkit-filter: blur(0.2px); /* Safari 6.0 - 9.0 */
+        filter: blur(0.2px);
       }
 
       .buttons {
@@ -106,6 +108,14 @@
         <div class="Btn" onclick="window.globals.deleteDrawing()">Clear</div>
         <div class="Btn" onclick="window.globals.undoPath();">Undo</div>
         <div class="Btn" onclick="window.globals.redoPath();">Redo</div>
+        <input
+          style="width: 50px"
+          type="color"
+          id="html5colorpicker"
+          onchange="window.globals.setColor(this.value)"
+          value="#ffff"
+          style="width: 85%"
+        />
         <!-- <div class="Btn" onclick="window.globals.resetFromLocal()">Load</div> -->
       </div>
       <div class="buttons bottom middle">
