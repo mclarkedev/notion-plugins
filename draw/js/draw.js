@@ -33,6 +33,7 @@ function toggleTheme() {
   var checkTheme = darkMode === true ? "light" : "dark";
   console.log(checkTheme);
   setTheme(checkTheme);
+  saveDrawing();
 }
 
 globals.toggleTheme = toggleTheme;
@@ -119,8 +120,6 @@ function resetFromLocal() {
       paper.project.importJSON(JSON.parse(localDrawing));
       paper.project.activate();
 
-      penColor = "black";
-
       setTheme(browserTheme);
 
       console.log("Active layer\n", paper.project.activeLayer);
@@ -131,6 +130,13 @@ function resetFromLocal() {
 }
 
 globals.resetFromLocal = resetFromLocal;
+
+function saveDrawing() {
+  var drawing = paper.project.exportJSON();
+  var localStoreKey = "drawing";
+  localStorage.setItem(localStoreKey, drawing);
+  console.info("Drawing saved to local store:", localStoreKey);
+}
 
 function setWidth(width) {
   penWidth = width;
@@ -209,10 +215,7 @@ tool.onMouseUp = function (event) {
   // textItem.content = difference + ' of the ' + segmentCount + ' segments were removed. Saving ' + percentage + '%';
 
   // Save to local on every draw
-  var drawing = paper.project.exportJSON();
-  // console.log("Export \n", drawing);
-  // localStorage.setItem("drawing", drawing);
-  // console.log("Active layer\n", paper.project.activeLayer);
+  saveDrawing();
 };
 
 //Listen for SHIFT-P to save content as SVG file.
