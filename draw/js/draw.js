@@ -23,6 +23,9 @@ var browserTheme =
     ? "dark"
     : "light";
 
+console.log(browserTheme);
+console.log(window);
+
 var currentTheme = browserTheme;
 
 // Setting mode state based on bool
