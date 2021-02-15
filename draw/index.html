@@ -80,8 +80,18 @@
     <!-- Define inlined PaperScript associate it with myCanvas -->
     <script>
       window.globals = {};
+      window.globals.state = { undoOffset: 0 };
     </script>
     <script type="text/paperscript" src="js/draw.js" canvas="canvas"></script>
+    <script>
+      // HTML UNDO STATE
+      var i = 0;
+      function buttonClick() {
+        i++;
+        document.getElementById("inc").value = i;
+        return i;
+      }
+    </script>
   </head>
 
   <body>
@@ -94,6 +104,7 @@
         <div class="Btn" onclick="window.globals.downloadAsSVG()">Download</div>
         <div class="Btn" onclick="window.globals.copyAsPNG()">Copy</div>
         <div class="Btn" onclick="window.globals.deleteDrawing()">Clear</div>
+        <div class="Btn" onclick="window.globals.undoPath();">Undo</div>
         <!-- <div class="Btn" onclick="window.globals.resetFromLocal()">Load</div> -->
       </div>
       <div class="buttons bottom middle">

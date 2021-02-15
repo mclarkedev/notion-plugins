@@ -27,7 +27,7 @@ var currentTheme = browserTheme;
 
 // Setting mode state based on bool
 var darkMode = browserTheme === "dark" ? true : false;
-console.log(darkMode);
+// console.log(darkMode);
 
 function toggleTheme() {
   var checkTheme = darkMode === true ? "light" : "dark";
@@ -59,7 +59,7 @@ function setTheme(theme) {
     //   strokeColor: notionBgColor,
     // };
 
-    console.log(paper.project.activeLayer.firstChild);
+    // console.log(paper.project.activeLayer.firstChild);
 
     console.log("DARK MODE");
     darkMode = true;
@@ -148,13 +148,17 @@ tool.minDistance = 1;
 tool.maxDistance = 5;
 // tool.fixedDistance = 2;
 
+// Main tool action
 tool.onMouseDown = function (event) {
   // Deselect previous paths:
   // if (path) {
   //   path.selected = false;
   // }
 
-  // New black path
+  // if (window.mode == "undo") {
+  //   pat;
+  // }
+
   path = new Path({
     segments: [event.point],
     strokeColor: penColor,
@@ -168,7 +172,16 @@ tool.onMouseDown = function (event) {
 // While the user drags the mouse, points are added to the path
 // at the position of the mouse:
 tool.onMouseDrag = function (event) {
+  // Reset the undo state for every draw
+  // This lets the user undo many times within a drawing session
+  window.globals.state.undoOffset = 0;
+
+  if (event.delta.x === 1) {
+    return;
+  }
+
   path.add(event.point);
+  // console.log("DELTA ", event.delta, "POINT ", event.point);
 
   path.strokeWidth = penWidth;
   path.strokeCap = "round";
@@ -183,6 +196,7 @@ tool.onMouseUp = function (event) {
   var segmentCount = path.segments.length;
 
   // When the mouse is released, simplify it:
+  path.smooth();
   path.simplify(10);
   path.strokeColor = penColor;
 
@@ -196,8 +210,8 @@ tool.onMouseUp = function (event) {
 
   // Save to local on every draw
   var drawing = paper.project.exportJSON();
-  console.log("Export \n", drawing);
-  localStorage.setItem("drawing", drawing);
+  // console.log("Export \n", drawing);
+  // localStorage.setItem("drawing", drawing);
   // console.log("Active layer\n", paper.project.activeLayer);
 };
 
@@ -209,6 +223,65 @@ tool.onKeyUp = function (event) {
 };
 
 globals.downloadAsSVG = downloadAsSVG;
+
+// Global functions call in HTML
+function undoPath() {
+  // Increment the offset
+  window.globals.state.undoOffset = window.globals.state.undoOffset + 1;
+  var offSetState = window.globals.state.undoOffset;
+  var strokeCount = paper.project.activeLayer.children.length;
+
+  // var allStrokes = paper.project.activeLayer.children;
+  // var allSavedStrokesAreGone =
+
+  // var undoHistory = [{}];
+  // for (var index = 0; index < allStrokes.length; index++) {
+  //   var element = allStrokes[index];
+
+  //   if (element.opacity === 0) {
+  //     // console.log(element);
+  //     return element;
+  //     history.push(element);
+  //   }
+  // }
+
+  // var undoHistoryCount = undoHistory.length;
+
+  // console.log(
+  //   "Undo the path:",
+  //   "offSetState",
+  //   offSetState,
+  //   "undoHistoryCount",
+  //   undoHistoryCount
+  // );
+
+  // if (allSavedStrokesAreGone) {
+
+  // }
+
+  // Don't let the offset climb higher than ammount of
+  // current strokes
+  if (offSetState === strokeCount) {
+    window.globals.state.undoOffset = 0;
+  } else {
+    console.log(
+      "Undo the path:",
+      "offSetState",
+      offSetState,
+      "strokeCount",
+      strokeCount
+    );
+
+    var pathToUndo =
+      paper.project.activeLayer.children[strokeCount - offSetState];
+
+    // Hide the path
+    // Using opacity
+    pathToUndo.opacity = 0;
+  }
+}
+
+globals.undoPath = undoPath;
 
 function downloadAsSVG(fileName) {
   if (!fileName) {
@@ -229,6 +302,9 @@ function downloadAsSVG(fileName) {
 globals.deleteDrawing = deleteDrawing;
 
 function deleteDrawing(fileName) {
+  // Wipe the undo state
+  window.globals.state.offSet = 0;
+
   project.clear();
   // If project is cleared, then always initPaper after
   initPaper();
@@ -267,7 +343,7 @@ function copyTextToClipboard(text) {
   }
 
   var encodedSVG = encodeURIComponent(text);
-  console.log(encodedSVG);
+  // console.log(encodedSVG);
 
   var clipboardItems = [
     new ClipboardItem({
