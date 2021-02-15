@@ -231,34 +231,6 @@ function undoPath() {
   var offSetState = window.globals.state.undoOffset;
   var strokeCount = paper.project.activeLayer.children.length;
 
-  // var allStrokes = paper.project.activeLayer.children;
-  // var allSavedStrokesAreGone =
-
-  // var undoHistory = [{}];
-  // for (var index = 0; index < allStrokes.length; index++) {
-  //   var element = allStrokes[index];
-
-  //   if (element.opacity === 0) {
-  //     // console.log(element);
-  //     return element;
-  //     history.push(element);
-  //   }
-  // }
-
-  // var undoHistoryCount = undoHistory.length;
-
-  // console.log(
-  //   "Undo the path:",
-  //   "offSetState",
-  //   offSetState,
-  //   "undoHistoryCount",
-  //   undoHistoryCount
-  // );
-
-  // if (allSavedStrokesAreGone) {
-
-  // }
-
   // Don't let the offset climb higher than ammount of
   // current strokes
   if (offSetState === strokeCount) {
@@ -282,6 +254,44 @@ function undoPath() {
 }
 
 globals.undoPath = undoPath;
+
+// Global functions call in HTML
+function redoPath() {
+  var offSetState = window.globals.state.undoOffset;
+  var strokeCount = paper.project.activeLayer.children.length;
+  var pathToRedo =
+    paper.project.activeLayer.children[strokeCount - offSetState];
+
+  pathToRedo.opacity = 1;
+
+  // Decrement the offset
+  window.globals.state.undoOffset = window.globals.state.undoOffset - 1;
+
+  // Increment the offset
+  // window.globals.state.undoOffset = window.globals.state.undoOffset + 1;
+  // var offSetState = window.globals.state.undoOffset;
+  // var strokeCount = paper.project.activeLayer.children.length;
+  // Don't let the offset climb higher than ammount of
+  // current strokes
+  // if (offSetState === strokeCount) {
+  //   window.globals.state.undoOffset = 0;
+  // } else {
+  //   console.log(
+  //     "Undo the path:",
+  //     "offSetState",
+  //     offSetState,
+  //     "strokeCount",
+  //     strokeCount
+  //   );
+  //   var pathToUndo =
+  //     paper.project.activeLayer.children[strokeCount - offSetState];
+  //   // Hide the path
+  //   // Using opacity
+  //   pathToUndo.opacity = 0;
+  // }
+}
+
+globals.redoPath = redoPath;
 
 function downloadAsSVG(fileName) {
   if (!fileName) {
