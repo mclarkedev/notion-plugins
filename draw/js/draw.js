@@ -109,9 +109,9 @@ function initPaper() {
 }
 
 var path = window.location.pathname;
+var localStorageKey = "notion:draw:" + path;
 var localDrawing =
-  localStorage.getItem("drawing") ||
-  localStorage.getItem("notion:draw:" + path);
+  localStorage.getItem("drawing") || localStorage.getItem(localStorageKey);
 if (localDrawing) {
   resetFromLocal();
 }
@@ -222,6 +222,11 @@ tool.onMouseUp = function (event) {
   var difference = segmentCount - newSegmentCount;
   var percentage = 100 - Math.round((newSegmentCount / segmentCount) * 100);
   // textItem.content = difference + ' of the ' + segmentCount + ' segments were removed. Saving ' + percentage + '%';
+
+  console.log(localStorageKey);
+  console.log(window.location);
+  console.log(localStorage.length);
+  console.log(localStorage);
 
   // Save to local on every draw
   saveDrawing();
