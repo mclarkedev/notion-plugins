@@ -108,7 +108,10 @@ function initPaper() {
   setTheme(currentTheme);
 }
 
-var localDrawing = localStorage.getItem("drawing");
+var path = window.location.pathname;
+var localDrawing =
+  localStorage.getItem("drawing") ||
+  localStorage.getItem("notion:draw:" + path);
 if (localDrawing) {
   resetFromLocal();
 }
@@ -139,7 +142,7 @@ globals.resetFromLocal = resetFromLocal;
 function saveDrawing() {
   var path = window.location.pathname;
   var drawing = paper.project.exportJSON();
-  var localStoreKey = "drawing:" + path;
+  var localStoreKey = "notion:draw:" + path;
   localStorage.setItem(localStoreKey, drawing);
   console.info("Drawing saved to local store:", localStoreKey);
 }
