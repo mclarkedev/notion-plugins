@@ -18,6 +18,7 @@ console.log("Doc referrer\n", document.referrer);
 console.log("Win Location\n", window.location);
 console.log("Your cookies\n", document.cookie);
 console.log("window.opener\n", window.opener);
+// console.log("window.top\n", window.parent);
 
 var browserTheme =
   window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -136,8 +137,9 @@ function resetFromLocal() {
 globals.resetFromLocal = resetFromLocal;
 
 function saveDrawing() {
+  var path = window.location.pathname;
   var drawing = paper.project.exportJSON();
-  var localStoreKey = "drawing";
+  var localStoreKey = "drawing:" + path;
   localStorage.setItem(localStoreKey, drawing);
   console.info("Drawing saved to local store:", localStoreKey);
 }
