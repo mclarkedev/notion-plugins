@@ -406,3 +406,5 @@ function copyAsPNG() {
     copyTextToClipboard(blob);
   });
 }
+
+console.log(window.parent);
