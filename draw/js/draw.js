@@ -19,6 +19,7 @@ console.log("Win Location\n", window.location);
 console.log("Your cookies\n", document.cookie);
 console.log("window.opener\n", window.opener);
 console.log("window.parent\n", window.parent);
+console.log("window.top\n", window.top);
 
 var browserTheme =
   window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
